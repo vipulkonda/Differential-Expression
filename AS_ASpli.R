@@ -9,7 +9,7 @@ AS_aspli <- function(GTF_File,        # Path to the GTF annotation file
                      folderpath,      # Output directory path
                      condition_names, # Vector of sample conditions (e.g., WT, KO)
                      project_name,    # Project identifier (used in output naming)
-                     x)               # Library type: "SE" (single-end) or "PE" (paired-end)
+                     Define_end)               # Library type: "SE" (single-end) or "PE" (paired-end)
 {
   # Track runtime
   ASpliStarttime <- Sys.time()
@@ -17,8 +17,6 @@ AS_aspli <- function(GTF_File,        # Path to the GTF annotation file
   # Create output directory for ASpli results
   Dexseq_path <- dir.create(paste0(folderpath, project_name, "/ASpli"))
   
-  # Debug print: check library type or singleEnd status
-  print(singleEnd) # ⚠️ 'singleEnd' is not defined in this function. Might cause an error.
   
   # Build transcript database object from GTF
   txdb <- makeTxDbFromGFF(GTF_File)
@@ -35,7 +33,7 @@ AS_aspli <- function(GTF_File,        # Path to the GTF annotation file
   # Count reads in genomic bins
   gbcounts <- gbCounts(features = features,
                        targets = targets,
-                       libType = x,         # SE or PE
+                       libType = Define_end,         # SE or PE
                        minReadLength = 1,
                        maxISize = 300)
   
